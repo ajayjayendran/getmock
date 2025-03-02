@@ -1,0 +1,20 @@
+.rjv-lite-key {
+  color: #f08d49; /* Change key color */
+  font-weight: bold;
+}
+
+.rjv-lite-value-string {
+  color: #67c23a; /* Change string color (green) */
+}
+
+.rjv-lite-value-number {
+  color: #f39c12; /* Change number color (orange) */
+}
+
+.rjv-lite-value-boolean {
+  color: #ff3b30; /* Change boolean color (red) */
+}
+
+.rjv-lite-value-null {
+  color: #8e44ad; /* Change null color (purple) */
+}
