@@ -5,9 +5,12 @@ import { Row } from "./Form";
 import Button from "../ui/Button";
 import DeleteIcon from "../../../public/icons/delete.svg";
 import Image from "next/image";
+import { getFormErrorMsg } from "@/utils/validation";
+import { Grid2x2X } from "lucide-react";
 
 interface IFakerRow {
   row: Row;
+  error: Row;
   updateRow: (row: Row) => void;
   removeRow: (id: string) => void;
   enableDelete: boolean;
@@ -15,6 +18,7 @@ interface IFakerRow {
 
 const FormRow: React.FC<IFakerRow> = ({ ...props }) => {
   const [row, setRow] = useState<Row>(props.row);
+  const [error, setError] = useState<Row>(props.error);
 
   const onChange = (key: string, value: string) => {
     const latest = {
@@ -30,31 +34,40 @@ const FormRow: React.FC<IFakerRow> = ({ ...props }) => {
 
   useEffect(() => {
     setRow(props.row);
-  }, [props.row]);
+    setError(props.error);
+  }, [props.row, props.error]);
 
   return (
-    <div className="grid grid-cols-3 gap-2">
-      <TextField
-        placeholder="Mock Input Field Name"
-        value={row?.name ?? ""}
-        onChange={(event) => {
-          onChange("name", event.target.value);
-        }}
-      />
-      <FakerSelect
-        value={row?.type as string}
-        onFakerSelect={(value) => {
-          onChange("type", value);
-        }}
-      />
+    <div
+      id={row.id}
+      className="grid grid-cols-1 md:grid-cols-5 gap-0 md:gap-2 border md:border-none p-4 md:p-0 rounded-lg"
+    >
+      <div className="col-span-2">
+        <TextField
+          placeholder="Mock Input Field Name"
+          value={row?.name ?? ""}
+          error={getFormErrorMsg("name", error?.name)}
+          onChange={(event) => {
+            onChange("name", event.target.value);
+          }}
+        />
+      </div>
+      <div className="col-span-2 py-3 md:py-0">
+        <FakerSelect
+          value={row?.type as string}
+          onFakerSelect={(value) => {
+            onChange("type", value);
+          }}
+        />
+      </div>
       <Button
         disabled={!props.enableDelete}
         onClick={() => props.removeRow(row.id)}
-        className={`flex gap-4 text-tertiary-100 bg-neutral-100 border border-border w-max px-10 py-2 font-bold ${
+        className={`cursor-pointer col-span-1 flex items-center justify-center gap-2 text-tertiary-100 bg-neutral-100 border border-border w-full md:w-max h-max px-8 py-2 font-bold ${
           props.enableDelete ? "hover:border-tertiary-100" : "hover:border-none"
         }"`}
       >
-        <Image src={DeleteIcon} alt="" />
+        <Grid2x2X size={20} className="cursor-pointer" />
         Delete Row
       </Button>
     </div>

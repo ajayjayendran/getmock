@@ -11,8 +11,7 @@ interface IFakerSelect {
 
 const FakerSelect: FC<IFakerSelect> = ({ ...props }) => {
   const [fakerOptions, setFakerOptions] = useState<Option[]>([]);
-
-  const [selectedValue, setSelectedValue] = useState("");
+  const [value, setValue] = useState(props.value);
 
   const fetchFakerOptions = () => {
     const fakerMethods: Option[] = [];
@@ -41,12 +40,17 @@ const FakerSelect: FC<IFakerSelect> = ({ ...props }) => {
     fetchFakerOptions();
   }, []);
 
+  useEffect(() => {
+    setValue(props.value);
+  }, [props.value]);
+
   return (
     <SearchableSelect
       placeholder="Mock Input Field Type"
-      value={props.value}
+      value={value}
       options={fakerOptions}
       onChange={(value) => {
+        setValue(value);
         props.onFakerSelect(value);
       }}
     />

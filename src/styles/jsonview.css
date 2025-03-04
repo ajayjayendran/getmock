@@ -1,20 +1,15 @@
-.rjv-lite-key {
-  color: #f08d49; /* Change key color */
-  font-weight: bold;
+.json-editor span.json-key {
+  color: #2563eb; /* Blue for field names */
 }
 
-.rjv-lite-value-string {
-  color: #67c23a; /* Change string color (green) */
+.json-editor span.json-value {
+  color: #16a34a; /* Green for field values */
 }
 
-.rjv-lite-value-number {
-  color: #f39c12; /* Change number color (orange) */
+.dark .json-editor span.json-key {
+  color: #3b82f6; /* Light blue in dark mode */
 }
 
-.rjv-lite-value-boolean {
-  color: #ff3b30; /* Change boolean color (red) */
-}
-
-.rjv-lite-value-null {
-  color: #8e44ad; /* Change null color (purple) */
+.dark .json-editor span.json-value {
+  color: #22c55e; /* Light green in dark mode */
 }

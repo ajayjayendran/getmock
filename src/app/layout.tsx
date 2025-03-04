@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Lato, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import TopBar from "@/components/ui/TopBar";
+import { Toaster } from "sonner";
 
 const lato = Lato({
   variable: "--font-primary",
@@ -20,10 +21,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
-      <body className={`${lato.variable} antialiased pt-6 h-full`}>
+    <html lang="en" className="h-screen">
+      <body
+        className={`${lato.variable} antialiased pt-6 h-screen flex flex-col`}
+      >
+        <Toaster richColors position="top-center" />
+
         <TopBar />
-        <main className="mt-8 h-full">{children}</main>
+        <main className="mt-8 flex-1 overflow-auto md:overflow-hidden">
+          {children}
+        </main>
       </body>
     </html>
   );

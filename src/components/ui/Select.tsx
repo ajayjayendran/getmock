@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TextField from "./TextField";
 
 export interface Option {
@@ -12,6 +12,7 @@ interface SearchableSelectProps {
   onChange?: (value: string) => void;
   placeholder?: string;
   maxWidth?: string;
+  className?: string;
 }
 
 const SearchableSelect: React.FC<SearchableSelectProps> = ({
@@ -20,6 +21,7 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
   onChange,
   placeholder = "Select...",
   maxWidth = "w-full",
+  className = "",
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -27,11 +29,17 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
   const filteredOptions = options.filter((option) =>
     option.label.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  useEffect(() => {
+    setSearchTerm(value as string);
+  }, [value]);
+
   return (
     <div className={`relative ${maxWidth}`}>
       {/* Search Input Field */}
       <TextField
         value={searchTerm}
+        className={className}
         onChange={(e) => {
           if (e.target.value === "") {
             setIsOpen(false);
